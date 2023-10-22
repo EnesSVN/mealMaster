@@ -6,21 +6,29 @@ import SearchLogo from "../ui/SearchLogo";
 import SearchModal from "../modals/SearchModal";
 import HamburgerMenuIcon from "../ui/HamburgerMenuIcon";
 import CloseIcon from "../ui/CloseIcon";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const [searchModal, setSearchModal] = useState(false);
   const [menu, setMenu] = useState(false);
 
+  const router = useRouter();
+
   return (
-    <div className=" h-20 bg-secondary ">
+    <div
+      className={
+        "h-20  z-50 relative  " +
+        (router.asPath === "/" ? " bg-transparent" : " bg-secondary")
+      }
+    >
       <div className=" container mx-auto  text-white flex justify-between items-center h-full">
         <div>
           <Logo />
         </div>
         <nav
           className={
-            "sm:static absolute top-0 left-0 sm:w-auto sm:h-auto h-full w-full sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden " +
-            (menu !== true && "grid place-content-center ")
+            "sm:static absolute top-0 left-0 h-screen sm:w-auto sm:h-auto  w-full sm:text-white text-black sm:bg-transparent bg-white sm:flex hidden " +
+            (menu === true && "!grid place-content-center ")
           }
         >
           <div

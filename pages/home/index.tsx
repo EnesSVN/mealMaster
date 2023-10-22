@@ -1,6 +1,10 @@
+import Carousel from "@/components/layout/Carousel";
+
 const Home = () => {
   return (
-    <div className=" text-primary font-dancing flex text-center justify-center w-full text-3xl"></div>
+    <div className=" relative ">
+      <Carousel />
+    </div>
   );
 };
 
