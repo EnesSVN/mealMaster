@@ -12,7 +12,7 @@ function CarouselItem() {
         doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus
         libero ipsam.
       </p>
-      <OrderNow />
+      <OrderNow icon={false} />
     </div>
   );
 }
