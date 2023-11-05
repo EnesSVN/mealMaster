@@ -1,21 +1,71 @@
 import React from "react";
 import Title from "../ui/Title";
 import Input from "../form/Input";
+import { useFormik } from "formik";
 
 function Reservation() {
+  type FormValues = {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    persons: string;
+    date: string;
+  };
+
+  const onSubmit = async (values: FormValues) => {
+    await new Promise((r) => setTimeout(r, 500));
+    console.log(values);
+
+    resetForm();
+  };
+
+  const { handleChange, handleSubmit, values, resetForm } = useFormik({
+    initialValues: {
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      persons: "",
+      date: "",
+    },
+    onSubmit,
+  });
+
+  const inputs = [
+    { id: 1, type: "text", name: "fullName", placeholder: "Your Full Name" },
+    {
+      id: 2,
+      type: "Number",
+      name: "phoneNumber",
+      placeholder: "Your Phone Number",
+    },
+    { id: 3, type: "email", name: "email", placeholder: "Your Email" },
+    {
+      id: 4,
+      type: "Number",
+      name: "persons",
+      placeholder: "How Many Persons?",
+    },
+    { id: 5, type: "datetime-local", name: "date", placeholder: "Date" },
+  ];
+
   return (
     <div className=" container mx-auto py-12">
-      <div className="flex justify-between flex-wrap items-center gap-x-10">
+      <div className="flex justify-between flex-wrap-reverse items-center gap-x-10">
         <div className=" lg:flex-1 w-full">
-          <Title text="Book A Table" MyClassName="text-4xl mb-10" />
-          <div className=" flex flex-col gap-y-5">
-            <Input />
-            <Input />
-            <Input />
-            <Input />
-            <Input />
-          </div>
-          <button className=" btn-primary my-4 ">BOOK NOW</button>
+          <Title text="Book A Table" MyClassName="text-4xl my-10" />
+          <form className=" flex flex-col gap-y-5" onSubmit={handleSubmit}>
+            {inputs.map((input) => (
+              <Input
+                key={input.id}
+                type={input.type}
+                name={input.name}
+                placeholder={input.placeholder}
+                onChange={handleChange}
+                value={values[input.name as keyof typeof values]}
+              />
+            ))}
+            <button className=" btn-primary my-4 ">BOOK NOW</button>
+          </form>
         </div>
         <div className=" lg:flex-1 w-full flex justify-center">
           <iframe
