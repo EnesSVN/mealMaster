@@ -4,9 +4,10 @@ type InputProps = {
   type: string;
   name: string;
   placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
 };
-
-function Input({ type, name, placeholder }: InputProps) {
+function Input({ type, name, placeholder, onChange, value }: InputProps) {
   return (
     <div className=" w-full">
       <label className=" relative block cursor-text w-full">
@@ -18,6 +19,7 @@ function Input({ type, name, placeholder }: InputProps) {
           required
           name={name}
           type={type}
+          onChange={onChange}
         />
         {type !== "datetime-local" && (
           <span className=" absolute top-0 left-0 px-4 text-sm flex items-center h-full peer-focus:h-7 peer-focus:text-xs peer-valid:h-7 peer-valid:text-xs transition-all duration-100">
