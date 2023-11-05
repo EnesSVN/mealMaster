@@ -2,6 +2,7 @@ import React from "react";
 import Title from "../ui/Title";
 import Input from "../form/Input";
 import { useFormik } from "formik";
+import { reservationSchema } from "@/schema/reservatioSchema";
 
 function Reservation() {
   type FormValues = {
@@ -15,11 +16,18 @@ function Reservation() {
   const onSubmit = async (values: FormValues) => {
     await new Promise((r) => setTimeout(r, 500));
     console.log(values);
-
     resetForm();
   };
 
-  const { handleChange, handleSubmit, values, resetForm } = useFormik({
+  const {
+    handleChange,
+    errors,
+    handleSubmit,
+    values,
+    touched,
+    resetForm,
+    handleBlur,
+  } = useFormik({
     initialValues: {
       fullName: "",
       phoneNumber: "",
@@ -28,6 +36,7 @@ function Reservation() {
       date: "",
     },
     onSubmit,
+    validationSchema: reservationSchema,
   });
 
   const inputs = [
@@ -62,6 +71,9 @@ function Reservation() {
                 placeholder={input.placeholder}
                 onChange={handleChange}
                 value={values[input.name as keyof typeof values]}
+                errorMessage={errors[input.name as keyof typeof errors]}
+                onBlur={handleBlur}
+                touched={touched[input.name as keyof typeof touched]}
               />
             ))}
             <button className=" btn-primary my-4 ">BOOK NOW</button>
