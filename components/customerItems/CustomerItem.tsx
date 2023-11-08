@@ -7,7 +7,7 @@ type Props = {
 
 function CustomerItem({ image }: Props) {
   return (
-    <div className=" my-20">
+    <div className=" my-5 mx-4">
       <div className=" p-6 bg-secondary text-white rounded-md">
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita cum
