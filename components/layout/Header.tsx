@@ -7,6 +7,7 @@ import SearchModal from "../modals/SearchModal";
 import HamburgerMenuIcon from "../ui/HamburgerMenuIcon";
 import CloseIcon from "../ui/CloseIcon";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Header = () => {
   const [searchModal, setSearchModal] = useState(false);
@@ -39,16 +40,16 @@ const Header = () => {
           </div>
           <ul className="flex sm:flex-row flex-col item items-center justify-end">
             <li className=" px-2 py-5 hover:text-primary cursor-pointer">
-              <a href="">HOME</a>
+              <Link href={"/"}>HOME</Link>
             </li>
             <li className=" px-2 py-5 hover:text-primary cursor-pointer">
-              <a href="">ABOUT</a>
+              <Link href={"/about"}>ABOUT</Link>
             </li>
             <li className=" px-2 py-5 hover:text-primary cursor-pointer">
-              <a href="">MENU</a>
+              <Link href={"/menu"}>MENU</Link>
             </li>
             <li className=" px-2 py-5 hover:text-primary cursor-pointer">
-              <a href="">BOOK TABLE</a>
+              <Link href={"/reservation"}>BOOK TABLE</Link>
             </li>
           </ul>
         </nav>
