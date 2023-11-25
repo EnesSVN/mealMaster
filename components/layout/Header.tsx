@@ -54,9 +54,9 @@ const Header = () => {
           </ul>
         </nav>
         <div className="flex items-center">
-          <a href="" className=" px-2">
+          <Link href="/auth/login" className=" px-2">
             <UserLogo />
-          </a>
+          </Link>
           <a href="" className=" px-2">
             <BasketLogo />
           </a>
