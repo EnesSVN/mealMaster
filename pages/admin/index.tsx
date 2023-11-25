@@ -1,18 +1,17 @@
 import Input from "@/components/form/Input";
 import Title from "@/components/ui/Title";
-import { logınSchema } from "@/schema/loginSchema";
+import { adminSchema } from "@/schema/adminSchema";
 import { useFormik } from "formik";
-import Link from "next/link";
 import React from "react";
 
-function Login() {
+function Admin() {
   const inputs = [
-    { id: 1, type: "email", name: "email", placeholder: "Your Email" },
+    { id: 1, type: "text", name: "username", placeholder: "Your Username" },
     { id: 2, type: "password", name: "password", placeholder: "Your Password" },
   ];
 
   type FormValues = {
-    email: string;
+    username: string;
     password: string;
   };
 
@@ -32,11 +31,11 @@ function Login() {
     handleBlur,
   } = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
     },
     onSubmit,
-    validationSchema: logınSchema,
+    validationSchema: adminSchema,
   });
 
   return (
@@ -45,7 +44,7 @@ function Login() {
         className=" flex flex-col items-center my-20 md:w-1/2 w-full mx-auto"
         onSubmit={handleSubmit}
       >
-        <Title text="Login" MyClassName="text-4xl mb-6" />
+        <Title text="Admin Login" MyClassName="text-4xl mb-6" />
         <div className="flex flex-col gap-y-4 w-full">
           {inputs.map((input) => (
             <Input
@@ -62,19 +61,11 @@ function Login() {
           ))}
         </div>
         <div className=" w-full flex flex-col gap-y-3 mt-4">
-          <button className="btn-primary  w-full">Login</button>{" "}
-          <button className="btn-primary w-full !bg-secondary ">GITHUB</button>
-          <Link href="/auth/register">
-            {" "}
-            <p className=" text-start underline">
-              {"Don't have an account? "}
-              <span className="text-primary ">Register</span>
-            </p>
-          </Link>
+          <button className="btn-primary  w-full"> Login</button>{" "}
         </div>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Admin;
