@@ -57,9 +57,9 @@ const Header = () => {
           <Link href="/auth/login" className=" px-2">
             <UserLogo />
           </Link>
-          <a href="" className=" px-2">
+          <Link href="/cart" className=" px-2">
             <BasketLogo />
-          </a>
+          </Link>
           <button
             className=" px-2"
             onClick={() => {
