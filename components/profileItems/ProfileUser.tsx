@@ -8,7 +8,7 @@ import UserItem from "./UserItem";
 
 function ProfileUser() {
   return (
-    <div className=" border border-gray-400  w-80">
+    <div className=" border border-gray-400  w-80 flex-shrink-0">
       <div className=" relative flex flex-col items-center px-10 py-5">
         <Image
           src="/images/man.jpg"
