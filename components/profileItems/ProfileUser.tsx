@@ -6,9 +6,14 @@ import UserLogo from "@/components/ui/UserLogo";
 import Image from "next/image";
 import UserItem from "./UserItem";
 
-function ProfileUser() {
+type Props = {
+  tabs: number;
+  setTabs: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function ProfileUser({ tabs, setTabs }: Props) {
   return (
-    <div className=" border border-gray-400  w-80 flex-shrink-0">
+    <div className=" border border-gray-400  lg:w-80 w-full flex-shrink-0">
       <div className=" relative flex flex-col items-center px-10 py-5">
         <Image
           src="/images/man.jpg"
@@ -20,13 +25,37 @@ function ProfileUser() {
         <b className=" text-2xl">Enes SEVEN</b>
       </div>
       <ul>
-        <UserItem Icon={HomeIcon} text="Account" />
+        <UserItem
+          Icon={HomeIcon}
+          text="Account"
+          id={0}
+          tabs={tabs}
+          setTabs={setTabs}
+        />
 
-        <UserItem Icon={KeyIcon} text="Password" />
+        <UserItem
+          Icon={KeyIcon}
+          text="Password"
+          id={1}
+          tabs={tabs}
+          setTabs={setTabs}
+        />
 
-        <UserItem Icon={UserLogo} text="Orders" />
+        <UserItem
+          Icon={UserLogo}
+          text="Orders"
+          id={2}
+          tabs={tabs}
+          setTabs={setTabs}
+        />
 
-        <UserItem Icon={ExitIcon} text="Exit" />
+        <UserItem
+          Icon={ExitIcon}
+          text="Exit"
+          id={3}
+          tabs={tabs}
+          setTabs={setTabs}
+        />
       </ul>
     </div>
   );
