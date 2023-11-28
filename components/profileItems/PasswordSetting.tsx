@@ -1,17 +1,13 @@
-import { profilSchema } from "@/schema/profilSchema";
 import { useFormik } from "formik";
 import React from "react";
 import Title from "../ui/Title";
 import Input from "../form/Input";
+import { passwordSchema } from "@/schema/passwordSchema";
 
-function AccountSetting() {
+function PasswordSetting() {
   type FormValues = {
-    fullName: string;
-    phoneNumber: string;
-    email: string;
-    address: string;
-    job: string;
-    bio: string;
+    password: string;
+    confirmPassword: string;
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -30,47 +26,33 @@ function AccountSetting() {
     handleBlur,
   } = useFormik({
     initialValues: {
-      fullName: "",
-      phoneNumber: "",
-      email: "",
-      address: "",
-      job: "",
-      bio: "",
+      password: "",
+      confirmPassword: "",
     },
     onSubmit,
-    validationSchema: profilSchema,
+    validationSchema: passwordSchema,
   });
 
   const inputs = [
     {
       id: 1,
-      type: "text",
-      name: "fullName",
-      placeholder: "Your Full Name",
+      type: "password",
+      name: "password",
+      placeholder: "Your Password",
     },
     {
       id: 2,
-      type: "Number",
-      name: "address",
-      placeholder: "Your Phone Number",
+      type: "password",
+      name: "confirmPassword",
+      placeholder: "Your Confirm Password",
     },
-    { id: 3, type: "email", name: "email", placeholder: "Your Email" },
-    {
-      id: 4,
-      type: "text",
-      name: "address",
-      placeholder: "Your Address",
-    },
-    { id: 5, type: "text", name: "job", placeholder: "Your Job" },
-    { id: 6, type: "text", name: "bio", placeholder: "Your Bio" },
   ];
-
   return (
     <form
       className=" lg:p-8 mb-10 lg:my-0 mt-5 flex-1 "
       onSubmit={handleSubmit}
     >
-      <Title text="Account Settings" MyClassName=" text-4xl " />
+      <Title text="Password" MyClassName=" text-4xl " />
       <div className=" grid lg:grid-cols-2 grid-cols-1 gap-4 my-5">
         {inputs.map((input) => (
           <Input
@@ -93,4 +75,4 @@ function AccountSetting() {
   );
 }
 
-export default AccountSetting;
+export default PasswordSetting;
