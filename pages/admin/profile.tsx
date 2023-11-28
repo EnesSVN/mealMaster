@@ -3,6 +3,7 @@ import ProfileAdmin from "@/components/ProfileAdminItems/ProfileAdmin";
 import ProductList from "@/components/ProfileAdminItems/ProductList";
 import OrderAdminPage from "@/components/ProfileAdminItems/OrderAdminPage";
 import CatagoryAdmin from "@/components/ProfileAdminItems/CatagoryAdmin";
+import FooterAdmin from "@/components/ProfileAdminItems/FooterAdmin";
 
 function Profile() {
   const [tabs, setTabs] = useState(0);
@@ -13,6 +14,7 @@ function Profile() {
       {tabs === 0 && <ProductList />}
       {tabs === 1 && <OrderAdminPage />}
       {tabs === 2 && <CatagoryAdmin />}
+      {tabs === 3 && <FooterAdmin />}
     </div>
   );
 }
