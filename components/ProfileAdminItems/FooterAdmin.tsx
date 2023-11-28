@@ -1,17 +1,17 @@
-import { profilSchema } from "@/schema/profilSchema";
 import { useFormik } from "formik";
 import React from "react";
 import Title from "../ui/Title";
 import Input from "../form/Input";
+import { footerSchema } from "@/schema/footerSchema";
 
-function AccountSetting() {
+function FooterAdmin() {
   type FormValues = {
-    fullName: string;
+    location: string;
     phoneNumber: string;
     email: string;
-    address: string;
-    job: string;
-    bio: string;
+    desc: string;
+    day: string;
+    time: string;
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -30,39 +30,39 @@ function AccountSetting() {
     handleBlur,
   } = useFormik({
     initialValues: {
-      fullName: "",
+      location: "",
       phoneNumber: "",
       email: "",
-      address: "",
-      job: "",
-      bio: "",
+      desc: "",
+      day: "",
+      time: "",
     },
     onSubmit,
-    validationSchema: profilSchema,
+    validationSchema: footerSchema,
   });
 
   const inputs = [
     {
       id: 1,
       type: "text",
-      name: "fullName",
-      placeholder: "Your Full Name",
+      name: "location",
+      placeholder: "Your Location",
     },
+    { id: 2, type: "email", name: "email", placeholder: "Your Email" },
     {
-      id: 2,
+      id: 3,
       type: "Number",
       name: "phoneNumber",
       placeholder: "Your Phone Number",
     },
-    { id: 3, type: "email", name: "email", placeholder: "Your Email" },
     {
       id: 4,
       type: "text",
-      name: "address",
-      placeholder: "Your Address",
+      name: "desc",
+      placeholder: "Your Description",
     },
-    { id: 5, type: "text", name: "job", placeholder: "Your Job" },
-    { id: 6, type: "text", name: "bio", placeholder: "Your Bio" },
+    { id: 5, type: "text", name: "day", placeholder: "write day" },
+    { id: 6, type: "text", name: "time", placeholder: "write time" },
   ];
 
   return (
@@ -93,4 +93,4 @@ function AccountSetting() {
   );
 }
 
-export default AccountSetting;
+export default FooterAdmin;
