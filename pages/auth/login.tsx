@@ -4,8 +4,12 @@ import { logınSchema } from "@/schema/loginSchema";
 import { useFormik } from "formik";
 import Link from "next/link";
 import React from "react";
+import { useSession, signIn } from "next-auth/react";
 
 function Login() {
+  const { data: session } = useSession();
+  console.log(session);
+
   const inputs = [
     { id: 1, type: "email", name: "email", placeholder: "Your Email" },
     { id: 2, type: "password", name: "password", placeholder: "Your Password" },
@@ -62,8 +66,16 @@ function Login() {
           ))}
         </div>
         <div className=" w-full flex flex-col gap-y-3 mt-4">
-          <button className="btn-primary  w-full">Login</button>{" "}
-          <button className="btn-primary w-full !bg-secondary ">GITHUB</button>
+          <button className="btn-primary  w-full" type="submit">
+            Login
+          </button>{" "}
+          <button
+            className="btn-primary w-full !bg-secondary"
+            type="button"
+            onClick={() => signIn("github")}
+          >
+            GITHUB
+          </button>
           <Link href="/auth/register">
             {" "}
             <p className=" text-start underline">
