@@ -6,7 +6,7 @@ import Mail from "../ui/Mail";
 
 function Footer() {
   return (
-    <div className=" bg-secondary  text-white">
+    <div className=" bg-secondary relative  text-white">
       <div className="  container mx-auto py-20">
         <div className=" flex md:justify-between justify-center text-center flex-wrap md:gap-y-0 gap-y-4">
           <div className=" md:flex-1">
