@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Title from "../../components/ui/Title";
 import ProductSize from "../../components/ui/ProductSize";
 import OptionBox from "../../components/ui/OptionBox";
+import { addProduct } from "../../redux/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const optionsDefault = [
   { id: 1, name: "Ketçap", price: 1 },
@@ -13,6 +15,15 @@ const optionsDefault = [
     price: 3,
   },
 ];
+const footItems = [
+  {
+    id: 1,
+    name: "Pizza 1",
+    price: 10,
+    dedc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    extraOptions: [{ id: 1, name: "Ketçap", price: 1 }],
+  },
+];
 
 function Product() {
   const [prices, setPrices] = useState([10, 20, 30]);
@@ -20,6 +31,8 @@ function Product() {
   const [size, setSize] = useState(0);
   const [options, setOptions] = useState(optionsDefault);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const { products, quantity, total } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const handleSize = (index) => {
     const diff = prices[index] - prices[size];
@@ -40,9 +53,15 @@ function Product() {
     }
   };
 
+  const handleClick = () => {
+    dispatch(
+      addProduct({ ...footItems[0], selectedOptions, price, quantity: 1 })
+    );
+  };
+  console.log(products, quantity, total);
   return (
     <div className=" flex md:h-screen relative items-center gap-20 md:py-20 pt-10 flex-wrap mb-16">
-      <div className=" relative md:flex-1 md:w-4/6 h-44 w-full ">
+      <div className=" relative md:flex-1 md:w-4/6 h-44 md:h-full w-full ">
         <Image
           src="/images/pizza.png"
           layout="fill"
@@ -93,7 +112,10 @@ function Product() {
             />
           ))}
         </div>
-        <button className=" btn-primary"> Add to Cart</button>
+        <button className=" btn-primary" onClick={handleClick}>
+          {" "}
+          Add to Cart
+        </button>
       </div>
     </div>
   );

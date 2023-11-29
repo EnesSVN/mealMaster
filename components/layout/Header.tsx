@@ -8,12 +8,16 @@ import HamburgerMenuIcon from "../ui/HamburgerMenuIcon";
 import CloseIcon from "../ui/CloseIcon";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import Product from "@/interface/productInterface";
 
 const Header = () => {
+  const router = useRouter();
   const [searchModal, setSearchModal] = useState(false);
   const [menu, setMenu] = useState(false);
-
-  const router = useRouter();
+  const { products, quantity, total } = useSelector(
+    (state: { cart: Product }) => state.cart
+  );
 
   return (
     <div
@@ -57,8 +61,11 @@ const Header = () => {
           <Link href="/auth/login" className=" px-2">
             <UserLogo />
           </Link>
-          <Link href="/cart" className=" px-2">
+          <Link href="/cart" className=" px-2 relative">
             <BasketLogo />
+            <span className=" w-4 h-4 text-xs bg-primary grid place-items-center rounded-full absolute -top-1 -right-1 text-secondary font-semibold">
+              {products.length > 0 && products.length}
+            </span>
           </Link>
           <button
             className=" px-2"
