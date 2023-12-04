@@ -1,9 +1,11 @@
 import Input from "@/components/form/Input";
 import Title from "@/components/ui/Title";
 import { registerSchema } from "@/schema/registerSchema";
+import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 
 function Register() {
   const inputs = [
@@ -27,9 +29,19 @@ function Register() {
   };
 
   const onSubmit = async (values: FormValues) => {
-    await new Promise((r) => setTimeout(r, 500));
-    console.log(values);
-    resetForm();
+    const api = process.env.NEXT_PUBLIC_API_URL;
+    console.log(api);
+
+    try {
+      console.log(values);
+      const res = await axios.post(`${api}/users/register`, values);
+      if (res.status === 200) {
+        toast.success("Register Success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    // resetForm();
   };
 
   const {
@@ -74,7 +86,9 @@ function Register() {
           ))}
         </div>
         <div className=" w-full flex flex-col gap-y-3 mt-4">
-          <button className="btn-primary  w-full">Login</button>{" "}
+          <button className="btn-primary w-full" type="submit">
+            Login
+          </button>{" "}
           <Link href="/auth/login">
             {" "}
             <p className=" text-start underline">

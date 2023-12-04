@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -43,4 +43,5 @@ const UserSchema = new mongoose.Schema(
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
 
-//Create fake a body for the request
+
+
