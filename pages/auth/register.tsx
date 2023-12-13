@@ -30,18 +30,16 @@ function Register() {
 
   const onSubmit = async (values: FormValues) => {
     const api = process.env.NEXT_PUBLIC_API_URL;
-    console.log(api);
-
     try {
       console.log(values);
       const res = await axios.post(`${api}/users/register`, values);
       if (res.status === 200) {
         toast.success("Register Success");
+        resetForm();
       }
     } catch (error) {
       console.log(error);
     }
-    // resetForm();
   };
 
   const {
