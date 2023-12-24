@@ -30,18 +30,16 @@ function Register() {
 
   const onSubmit = async (values: FormValues) => {
     const api = process.env.NEXT_PUBLIC_API_URL;
-    console.log(api);
-
     try {
       console.log(values);
       const res = await axios.post(`${api}/users/register`, values);
       if (res.status === 200) {
         toast.success("Register Success");
+        resetForm();
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
     }
-    // resetForm();
   };
 
   const {
@@ -87,7 +85,7 @@ function Register() {
         </div>
         <div className=" w-full flex flex-col gap-y-3 mt-4">
           <button className="btn-primary w-full" type="submit">
-            Login
+            Register
           </button>{" "}
           <Link href="/auth/login">
             {" "}
