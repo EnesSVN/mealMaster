@@ -8,7 +8,6 @@ import { useSession, signIn } from "next-auth/react";
 
 function Login() {
   const { data: session } = useSession();
-  console.log(session);
 
   const inputs = [
     { id: 1, type: "email", name: "email", placeholder: "Your Email" },
@@ -21,10 +20,12 @@ function Login() {
   };
 
   const onSubmit = async (values: FormValues) => {
-    await new Promise((r) => setTimeout(r, 500));
-    console.log(values);
-    resetForm();
+    const { email, password } = values;
+    let options = { redirect: false, email, password };
+    const res = await signIn("credentials", options);
+    // resetForm();
   };
+  console.log(session);
 
   const {
     handleChange,

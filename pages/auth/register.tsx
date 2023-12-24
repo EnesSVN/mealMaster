@@ -38,7 +38,7 @@ function Register() {
         resetForm();
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -85,7 +85,7 @@ function Register() {
         </div>
         <div className=" w-full flex flex-col gap-y-3 mt-4">
           <button className="btn-primary w-full" type="submit">
-            Login
+            Register
           </button>{" "}
           <Link href="/auth/login">
             {" "}
