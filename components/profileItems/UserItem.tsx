@@ -6,12 +6,15 @@ type Props = {
   id: number;
   tabs: number;
   setTabs: React.Dispatch<React.SetStateAction<number>>;
+  onClick?: () => void;
 };
 
-function UserItem({ Icon, text, id, tabs, setTabs }: Props) {
+function UserItem({ Icon, text, id, tabs, setTabs, onClick }: Props) {
   return (
     <li
-      onClick={() => setTabs(id)}
+      onClick={() => {
+        text === "Exit" ? onClick() : setTabs(id);
+      }}
       className={
         "border w-full p-3 flex gap-x-2 cursor-pointer hover:bg-primary hover:text-white transition-all duration-100 " +
         (tabs === id ? "bg-primary text-white" : "")

@@ -1,10 +1,15 @@
 import Input from "@/components/form/Input";
 import Title from "@/components/ui/Title";
 import { adminSchema } from "@/schema/adminSchema";
+import axios from "axios";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
+import jwt from "jsonwebtoken";
 
 function Admin() {
+  const { push } = useRouter();
   const inputs = [
     { id: 1, type: "text", name: "username", placeholder: "Your Username" },
     { id: 2, type: "password", name: "password", placeholder: "Your Password" },
@@ -14,11 +19,16 @@ function Admin() {
     username: string;
     password: string;
   };
-
+  const api = process.env.NEXT_PUBLIC_API_URL;
   const onSubmit = async (values: FormValues) => {
-    await new Promise((r) => setTimeout(r, 500));
-    console.log(values);
-    resetForm();
+    try {
+      const res = await axios.post(`${api}/admin`, values);
+      if (res.status === 200) {
+        resetForm();
+        toast.success("Login Success");
+        push("/admin/profile");
+      }
+    } catch (error) {}
   };
 
   const {
@@ -68,4 +78,21 @@ function Admin() {
   );
 }
 
+export const getServerSideProps = (ctx: any) => {
+  const { token } = ctx?.req?.cookies;
+
+  if (token) {
+    if (jwt?.verify(token, "ADMIN").username === "admin") {
+      return {
+        redirect: {
+          destination: "/admin/profile",
+          permanent: false,
+        },
+      };
+    }
+  }
+  return {
+    props: {},
+  };
+};
 export default Admin;

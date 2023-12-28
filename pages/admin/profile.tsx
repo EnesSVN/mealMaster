@@ -19,4 +19,19 @@ function Profile() {
   );
 }
 
+export const getServerSideProps = (ctx: any) => {
+  const { token } = ctx?.req?.cookies;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/admin",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
+
 export default Profile;
