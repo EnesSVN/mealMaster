@@ -6,6 +6,9 @@ import UserLogo from "../ui/UserLogo";
 import CategorieIcon from "../ui/CategorieIcon";
 import FooterIcon from "../ui/FooterIcon";
 import ExitIcon from "../ui/ExitIcon";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 type Props = {
   tabs: number;
@@ -13,6 +16,20 @@ type Props = {
 };
 
 function ProfileAdmin({ tabs, setTabs }: Props) {
+  const { push } = useRouter();
+  const api = process.env.NEXT_PUBLIC_API_URL;
+  const closeAdminAccount = async () => {
+    try {
+      if (confirm("Are you sure you want to delete your account?")) {
+        const res = await axios.put(`${api}/admin`);
+        if (res.status === 200) {
+          push("/admin");
+          toast.success("Account closed");
+        }
+      }
+    } catch (error) {}
+  };
+
   return (
     <div className=" border border-gray-400  lg:w-80 w-full flex-shrink-0">
       <div className=" relative flex flex-col items-center px-10 py-5">
@@ -60,6 +77,7 @@ function ProfileAdmin({ tabs, setTabs }: Props) {
           id={4}
           tabs={tabs}
           setTabs={setTabs}
+          onClick={closeAdminAccount}
         />
       </ul>
     </div>
