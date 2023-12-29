@@ -5,9 +5,15 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import React from "react";
 import { useSession, signIn } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function Login() {
+  const { push } = useRouter();
   const { data: session } = useSession();
+  if (session) {
+    push("/profile");
+  }
 
   const inputs = [
     { id: 1, type: "email", name: "email", placeholder: "Your Email" },
@@ -22,10 +28,18 @@ function Login() {
   const onSubmit = async (values: FormValues) => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
-    const res = await signIn("credentials", options);
-    // resetForm();
+
+    try {
+      const res = await signIn("credentials", options);
+      if (res.status === 200) {
+        toast.success("Login Success");
+        resetForm();
+        push("/profile");
+      }
+    } catch (error) {
+      toast.error("Login Failed");
+    }
   };
-  console.log(session);
 
   const {
     handleChange,

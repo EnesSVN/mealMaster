@@ -5,6 +5,8 @@ import KeyIcon from "@/components/ui/KeyIcon";
 import UserLogo from "@/components/ui/UserLogo";
 import Image from "next/image";
 import UserItem from "./UserItem";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type Props = {
   tabs: number;
@@ -12,6 +14,18 @@ type Props = {
 };
 
 function ProfileUser({ tabs, setTabs }: Props) {
+  const { data: session } = useSession();
+  const { push } = useRouter();
+  if (!session) {
+    push("/");
+  }
+  const handleLogout = () => {
+    if (confirm("Are you sure to logout?")) {
+      signOut({ redirect: false });
+      push("/");
+    }
+  };
+
   return (
     <div className=" border border-gray-400  lg:w-80 w-full flex-shrink-0">
       <div className=" relative flex flex-col items-center px-10 py-5">
@@ -55,6 +69,7 @@ function ProfileUser({ tabs, setTabs }: Props) {
           id={3}
           tabs={tabs}
           setTabs={setTabs}
+          onClick={handleLogout}
         />
       </ul>
     </div>
