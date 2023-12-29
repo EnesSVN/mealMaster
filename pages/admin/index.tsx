@@ -28,7 +28,9 @@ function Admin() {
         toast.success("Login Success");
         push("/admin/profile");
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Login Failed");
+    }
   };
 
   const {

@@ -3,11 +3,15 @@ import Title from "@/components/ui/Title";
 import { registerSchema } from "@/schema/registerSchema";
 import axios from "axios";
 import { useFormik } from "formik";
+import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 
 function Register() {
+  const { push } = useRouter();
+
   const inputs = [
     { id: 1, type: "email", name: "email", placeholder: "Your Email" },
     { id: 2, type: "text", name: "fullName", placeholder: "Your Full Name" },
@@ -36,6 +40,7 @@ function Register() {
       if (res.status === 200) {
         toast.success("Register Success");
         resetForm();
+        push("/auth/login");
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -98,6 +103,25 @@ function Register() {
       </form>
     </div>
   );
+}
+
+export async function getServerSideProps({ req: any }) {
+  const session = await getSession({ req: any });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/profile",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
 
 export default Register;

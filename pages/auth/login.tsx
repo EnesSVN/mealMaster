@@ -4,10 +4,12 @@ import { logınSchema } from "@/schema/loginSchema";
 import { useFormik } from "formik";
 import Link from "next/link";
 import React from "react";
-import { useSession, signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function Login() {
-  const { data: session } = useSession();
+  const { push } = useRouter();
 
   const inputs = [
     { id: 1, type: "email", name: "email", placeholder: "Your Email" },
@@ -22,10 +24,18 @@ function Login() {
   const onSubmit = async (values: FormValues) => {
     const { email, password } = values;
     let options = { redirect: false, email, password };
-    const res = await signIn("credentials", options);
-    // resetForm();
+
+    try {
+      const res = await signIn("credentials", options);
+      if (res.status === 200) {
+        toast.success("Login Success");
+        resetForm();
+        push("/profile");
+      }
+    } catch (error) {
+      toast.error("Login Failed");
+    }
   };
-  console.log(session);
 
   const {
     handleChange,
@@ -89,5 +99,22 @@ function Login() {
     </div>
   );
 }
+export async function getServerSideProps({ req: any }) {
+  const session = await getSession({ req: any });
 
+  if (session) {
+    return {
+      redirect: {
+        destination: "/profile",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
 export default Login;
