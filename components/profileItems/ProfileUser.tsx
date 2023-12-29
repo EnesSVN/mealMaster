@@ -5,7 +5,7 @@ import KeyIcon from "@/components/ui/KeyIcon";
 import UserLogo from "@/components/ui/UserLogo";
 import Image from "next/image";
 import UserItem from "./UserItem";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 type Props = {
@@ -14,11 +14,8 @@ type Props = {
 };
 
 function ProfileUser({ tabs, setTabs }: Props) {
-  const { data: session } = useSession();
   const { push } = useRouter();
-  if (!session) {
-    push("/");
-  }
+
   const handleLogout = () => {
     if (confirm("Are you sure to logout?")) {
       signOut({ redirect: false });
